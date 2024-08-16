@@ -213,8 +213,8 @@ class TelnetShellG2H(TelnetShell):
             self.run_command(password)
             # self.run_command("mkdir /ccc")
 
-        self.run_command("stty -echo")
-        self.read_until(self._suffix.encode(), timeout=10)
+        # self.run_command("stty -echo")
+        # self.read_until(self._suffix.encode(), timeout=10)
         self._suffix = "# "
 
         self.run_command("mkdir /bbbbbbbbb")
