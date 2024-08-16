@@ -90,7 +90,7 @@ class GatewayRemote(GatewayGenericDevice, ToggleEntity):
         """Turn the remote on."""
         self._state = True
         self.gateway.send(
-            self.device, {'did': 'lumi.0', 'paring': 60})
+            self.device, {'did': 'lumi.0', 'pairing': 60})
         self.async_write_ha_state()
         self._state = False
         await self.async_refresh_toggle.async_call()
@@ -99,7 +99,7 @@ class GatewayRemote(GatewayGenericDevice, ToggleEntity):
         """Turn the remote off."""
         self._state = False
         self.gateway.send(
-            self.device, {'did': 'lumi.0', 'paring': 0})
+            self.device, {'did': 'lumi.0', 'pairing': 0})
         self.async_write_ha_state()
         self.async_refresh_toggle.async_cancel()
 
@@ -115,10 +115,10 @@ class GatewayRemote(GatewayGenericDevice, ToggleEntity):
                 self.gateway.send(
                     self.device, {'did': 'lumi.0', 'removed_did': did})
                 Utils.remove_device(self.hass, did)
-            elif cmd == 'paring':
+            elif cmd == 'pairing':
                 self._state = True
                 self.gateway.send(
-                    self.device, {'did': 'lumi.0', 'paring': 60})
+                    self.device, {'did': 'lumi.0', 'pairing': 60})
                 self.async_write_ha_state()
                 self._state = False
                 await self.async_refresh_toggle.async_call()

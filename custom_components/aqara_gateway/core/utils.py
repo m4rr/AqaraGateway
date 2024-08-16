@@ -60,7 +60,7 @@ DEVICES = [{
         ['8.0.2084', None, 'added_device', None],  # new devices added (info)
         ['8.0.2092', None, 'ir_shoot', None],
         ['8.0.2103', None, 'device_model', None],  # new device model
-        ['8.0.2109', None, 'paring', None],
+        ['8.0.2109', None, 'pairing', None],
         ['8.0.2110', None, 'discovered_mac', None],  # new device discovered
         ['8.0.2111', None, 'pair_command', None],  # add new device
         ['8.0.2157', None, 'panId', None],
@@ -1770,7 +1770,7 @@ GLOBAL_PROP = {
     '8.0.2091': 'dfu_status',
     '8.0.2101': 'nl_invert',  # ctrl_86plug
     '8.0.2102': 'alive',
-    '8.0.2109': 'paring',
+    '8.0.2109': 'pairing',
     '8.0.2111': 'pair_command',
     '8.0.2114': 'led_inverted',
     '8.0.2151': 'zigbee_pa',

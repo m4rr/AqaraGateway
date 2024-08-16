@@ -531,7 +531,7 @@ class Gateway:
                 self.devices.pop(value, None)
             return
 
-        if prop == 'paring' and value == 0:
+        if prop == 'pairing' and value == 0:
             device_name = Utils.get_device_name(self._model).lower()
             if (("g2h pro" in device_name) or ("g3" in device_name)):
                 shell = TelnetShellG3(self.host,
@@ -570,7 +570,7 @@ class Gateway:
                     ))
                     continue
 
-                if prop == 'paring':
+                if prop == 'pairing':
                     if dev['did'] not in self.devices:
                         device = {
                             'coordinator': 'lumi.0',
@@ -626,7 +626,7 @@ class Gateway:
                             p[2] for p in (device['params'])
                             if p[0] == prop
                         ), prop)
-                    if prop in ('removed_did', 'paring'):
+                    if prop in ('removed_did', 'pairing'):
                         self._process_devices_info(
                             prop, param.get('value', None))
 #                        self._handle_device_remove({})
@@ -773,7 +773,7 @@ class Gateway:
         """ send command """
         try:
             payload = {}
-            if device['type'] == 'zigbee' or 'paring' in data:
+            if device['type'] == 'zigbee' or 'pairing' in data:
                 did = data.get('did', device['did'])
                 data.pop('did', '')
                 params = []
