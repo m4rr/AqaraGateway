@@ -60,10 +60,6 @@ class TelnetShell(Telnet):
             raw = b''
         return raw if as_bytes else raw.decode()
 
-# WGET = "(wget http://master.dl.sourceforge.net/project/aqarahub/{0}?viasf=1 " \
-            # "-O /data/bin/{1} && chmod +x /data/bin/{1})"
-
-
     def check_bin(self, filename: str, md5: str, url=None) -> bool:
         """Check binary md5 and download it if needed."""
         # used * for development purposes
@@ -194,30 +190,16 @@ class TelnetShellG2H(TelnetShell):
         """ login function """
         self._aqara_property = True
 
-        # self.write(b"\n")
+        self.write(b"\n")
         self.read_until(b"login: ", timeout=10)
+        self.write(b"root\n")
 
-        password = self._password
-        if ((password is None) or
-            (isinstance(password, str) and len(password) <= 2)
-        ):
-            password = None
-        # else:
-        #     password = None
-
-        self.write(b"root\r\n")
-
-        if password:
+        if self._password and isinstance(self._password, str) and len(self._password) > 2:
             self.read_until(b"Password: ", timeout=3)
-            #self.write(password.encode() + b"\n")
-            self.run_command(password)
-            # self.run_command("mkdir /ccc")
+            self.write(self._password.encode() + b"\n")
 
-        # self.run_command("stty -echo")
-        # self.read_until(self._suffix.encode(), timeout=10)
-        self._suffix = "# "
-
-        self.run_command("mkdir /bbbbbbbbb")
+        self.run_command("stty -echo")
+        self.read_until(self._suffix.encode(), timeout=10)
 
 
 class TelnetShellE1(TelnetShell):
