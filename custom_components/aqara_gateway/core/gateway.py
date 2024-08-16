@@ -152,7 +152,7 @@ class Gateway:
                 if self.host in self.hass.data[DOMAIN]["telnet"]:
                     self.hass.data[DOMAIN]["telnet"].remove(self.host)
                 _LOGGER.error(f"Can not connecto the telnet of the gateway ({self.host})!")
-                await asyncio.sleep(30)
+                await asyncio.sleep(5)
                 continue
 
             telnetshell = True
@@ -173,7 +173,7 @@ class Gateway:
                     self.hass.data[DOMAIN]["mqtt"].remove(self.host)
                 if not self._prepare_gateway():
                     _LOGGER.error(f"Can not connecto the mqtt of the gateway ({self.host})!")
-                    await asyncio.sleep(30)
+                    await asyncio.sleep(5)
                     continue
 
             self._mqttc.loop_start()
@@ -531,7 +531,7 @@ class Gateway:
                 self.devices.pop(value, None)
             return
 
-        if prop == 'pairing' and value == 0:
+        if prop == 'paring' and value == 0:
             device_name = Utils.get_device_name(self._model).lower()
             if (("g2h pro" in device_name) or ("g3" in device_name)):
                 shell = TelnetShellG3(self.host,
@@ -570,7 +570,7 @@ class Gateway:
                     ))
                     continue
 
-                if prop == 'pairing':
+                if prop == 'paring':
                     if dev['did'] not in self.devices:
                         device = {
                             'coordinator': 'lumi.0',
@@ -626,7 +626,7 @@ class Gateway:
                             p[2] for p in (device['params'])
                             if p[0] == prop
                         ), prop)
-                    if prop in ('removed_did', 'pairing'):
+                    if prop in ('removed_did', 'paring'):
                         self._process_devices_info(
                             prop, param.get('value', None))
 #                        self._handle_device_remove({})
@@ -773,7 +773,7 @@ class Gateway:
         """ send command """
         try:
             payload = {}
-            if device['type'] == 'zigbee' or 'pairing' in data:
+            if device['type'] == 'zigbee' or 'paring' in data:
                 did = data.get('did', device['did'])
                 data.pop('did', '')
                 params = []
