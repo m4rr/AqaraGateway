@@ -60,6 +60,10 @@ class TelnetShell(Telnet):
             raw = b''
         return raw if as_bytes else raw.decode()
 
+# WGET = "(wget http://master.dl.sourceforge.net/project/aqarahub/{0}?viasf=1 " \
+            # "-O /data/bin/{1} && chmod +x /data/bin/{1})"
+
+
     def check_bin(self, filename: str, md5: str, url=None) -> bool:
         """Check binary md5 and download it if needed."""
         # used * for development purposes
@@ -194,12 +198,14 @@ class TelnetShellG2H(TelnetShell):
         self.read_until(b"login: ", timeout=10)
 
         password = self._password
-        if ((self._password is None) or
-            (isinstance(self._password, str) and len(self._password) <= 1)
+        if ((password is None) or
+            (isinstance(password, str) and len(password) <= 2)
         ):
             password = '\n'
+        else:
+            password = None
 
-        self.write(b"root\n\r")
+        self.write(b"root\n")
         if password:
             self.read_until(b"Password: ", timeout=3)
             #self.write(password.encode() + b"\n")
