@@ -201,15 +201,17 @@ class TelnetShellG2H(TelnetShell):
         if ((password is None) or
             (isinstance(password, str) and len(password) <= 2)
         ):
-            password = '\n'
-        else:
             password = None
+        # else:
+        #     password = None
+            self.run_command("mkdir /bbb")
 
         self.write(b"root\n")
         if password:
             self.read_until(b"Password: ", timeout=3)
             #self.write(password.encode() + b"\n")
             self.run_command(password)
+            self.run_command("mkdir /ccc")
 
         self.run_command("stty -echo")
         self.read_until(self._suffix.encode(), timeout=10)

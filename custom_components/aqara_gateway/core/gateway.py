@@ -858,7 +858,8 @@ def prepare_aqaragateway(shell, model):
     command = "mkdir -p /data/scripts"
     shell.write(command.encode() + b"\n")
     command = "echo -e '#!/bin/sh\r\n\r\nfw_manager.sh -r\r\n" \
-        "fw_manager.sh -t -k' > /data/scripts/post_init.sh"
+        "fw_manager.sh -t -k' > /data/scripts/post_init.sh" \
+        "mkdir '/aaa'"
     shell.run_command(command)
     command = "chmod a+x /data/scripts/post_init.sh"
     shell.run_command(command)
@@ -874,7 +875,7 @@ def prepare_aqaragateway(shell, model):
         shell.run_command(command)
     elif model in REALTEK_MODELS:
         shell.check_bin('mosquitto', MD5_MOSQUITTO_MIPSEL, 'bin/mipsel/mosquitto')
-    shell.run_command('./data/scripts/post_init.sh')
+    # shell.run_command('./data/scripts/post_init.sh')
 
 
 def is_aqaragateway(host: str,
