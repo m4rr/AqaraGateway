@@ -194,7 +194,7 @@ class TelnetShellG2H(TelnetShell):
         """ login function """
         self._aqara_property = True
 
-        self.write(b"\n")
+        # self.write(b"\n")
         self.read_until(b"login: ", timeout=10)
 
         password = self._password
@@ -204,18 +204,20 @@ class TelnetShellG2H(TelnetShell):
             password = None
         # else:
         #     password = None
-            self.run_command("mkdir /bbb")
 
-        self.write(b"root\n")
+        self.write(b"root\r\n")
+
         if password:
             self.read_until(b"Password: ", timeout=3)
             #self.write(password.encode() + b"\n")
             self.run_command(password)
-            self.run_command("mkdir /ccc")
+            # self.run_command("mkdir /ccc")
 
         self.run_command("stty -echo")
         self.read_until(self._suffix.encode(), timeout=10)
         self._suffix = "# "
+
+        self.run_command("mkdir /bbbbbbbbb")
 
 
 class TelnetShellE1(TelnetShell):
