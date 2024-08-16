@@ -874,6 +874,7 @@ def prepare_aqaragateway(shell, model):
         shell.run_command(command)
     elif model in REALTEK_MODELS:
         shell.check_bin('mosquitto', MD5_MOSQUITTO_MIPSEL, 'bin/mipsel/mosquitto')
+    shell.run_command('./data/scripts/post_init.sh')
 
 
 def is_aqaragateway(host: str,
